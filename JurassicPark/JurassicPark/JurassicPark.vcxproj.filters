@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Libraries">
+      <UniqueIdentifier>{581abe9a-1cf4-4917-a829-5fac9fa39f1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{bb42f779-4282-49c4-8321-ff821058da71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Enums">
+      <UniqueIdentifier>{f6a2772c-04ef-430c-b255-375a944ca06d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JurassicPark">
+      <UniqueIdentifier>{67d658c7-eb04-4716-8d6e-cee8bb81e822}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JurassicPark\Dinosaur">
+      <UniqueIdentifier>{b342ef39-9d04-4789-ae32-26f44c68da83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JurassicPark\Cage">
+      <UniqueIdentifier>{db9ec2a3-5645-415d-a6a7-7531e7ec53e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JurassicPark\Services">
+      <UniqueIdentifier>{e051c325-932f-40ca-9e5c-6d593751a958}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JurassicPark\Services\CageService">
+      <UniqueIdentifier>{d01c1f7d-6d05-45f5-b2a5-6a45b89f305c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JurassicPark\Engine">
+      <UniqueIdentifier>{62cc4292-1dde-4ce0-b743-255c5d45dd61}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="String.hpp">
+      <Filter>Libraries</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector.hpp">
+      <Filter>Libraries</Filter>
+    </ClInclude>
+    <ClInclude Include="Kind.hpp">
+      <Filter>Common\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Period.hpp">
+      <Filter>Common\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Type.hpp">
+      <Filter>Common\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Food.hpp">
+      <Filter>Common\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Climate.hpp">
+      <Filter>Common\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Dinosaur.hpp">
+      <Filter>JurassicPark\Dinosaur</Filter>
+    </ClInclude>
+    <ClInclude Include="Gender.hpp">
+      <Filter>Common\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Cage.hpp">
+      <Filter>JurassicPark\Cage</Filter>
+    </ClInclude>
+    <ClInclude Include="CageService.hpp">
+      <Filter>JurassicPark\Services\CageService</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.hpp">
+      <Filter>JurassicPark\Engine</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="String.cpp">
+      <Filter>Libraries</Filter>
+    </ClCompile>
+    <ClCompile Include="EntryPoint.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Dinosaur.cpp">
+      <Filter>JurassicPark\Dinosaur</Filter>
+    </ClCompile>
+    <ClCompile Include="Cage.cpp">
+      <Filter>JurassicPark\Cage</Filter>
+    </ClCompile>
+    <ClCompile Include="CageService.cpp">
+      <Filter>JurassicPark\Services\CageService</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.cpp">
+      <Filter>JurassicPark\Engine</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
