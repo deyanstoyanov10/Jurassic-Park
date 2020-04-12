@@ -1,5 +1,10 @@
 #include "Zoo.hpp"
 
+Zoo::Zoo()
+{
+	this->cages = Repository::loadAllCages();
+}
+
 void Zoo::addDinosaur(Dinosaur dinosaur)
 {
 	Climate currentClimate = CageService::getClimateByKind(dinosaur.getKind());
@@ -15,11 +20,25 @@ void Zoo::addDinosaur(Dinosaur dinosaur)
 			return;
 		}
 	}
+	
+	int size = CageService::randomNumber(3);
 
-	Cage newCage = CageService::createNewCage(currentClimate, dinosaur.getPeriod());
+	switch (size)
+	{
+	case 1: size = 1; break;
+	case 2: size = 3; break;
+	case 3: size = 10; break;
+	default: size = 1;
+		break;
+	}
+	
+	int newId = Repository::executeCagesId();
+	Cage newCage = Cage(newId ,size, currentClimate, dinosaur.getPeriod());
+	
 	this->cages[index].push_back(newCage);
 
 	this->cages[index][cages[index].count() - 1].addDinosaur(dinosaur);
+	Repository::serializeAll(this->cages);
 	std::cout << "Dinosaur successfully added." << std::endl;
 }
 
@@ -47,4 +66,17 @@ void Zoo::removeDinosaur(String name)
 	}
 
 	this->cages[indexOne][indexTwo].removeDinosaur(name);
+
+	Repository::serializeAll(this->cages);
+}
+
+void Zoo::printZoo()
+{
+	for (unsigned int i = 0; i < cages.count(); i++)
+	{
+		for (unsigned int j = 0; j < cages[i].count(); j++)
+		{
+			this->cages[i][j].printCage();
+		}
+	}
 }

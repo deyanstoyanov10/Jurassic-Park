@@ -1,13 +1,17 @@
-#pragma once
+#ifndef __CAGESERVICE_HPP
+#define __CAGESERVICE_HPP
 
-#include<time.h>
-#include "Cage.hpp"
+#include<iostream>
+#include<ctime>
+#include "Climate.hpp"
+#include "Kind.hpp"
+#include "Period.hpp"
 
 class CageService
 {
 public:
-	static Cage createNewCage(Climate climate, Period period);
 	static Climate getClimateByKind(Kind kind);
-private:
 	static int randomNumber(int maxNumber);
 };
+
+#endif

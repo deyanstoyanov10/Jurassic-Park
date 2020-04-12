@@ -2,7 +2,7 @@
 
 #include<string.h>
 #include<iostream>
-#include<ostream>
+#include<fstream>
 
 #define BUFFER 1024
 
@@ -35,15 +35,17 @@ public:
 	friend bool operator!=(const char* strLeft, const String& strRight);
 
 	friend std::ostream& operator<< (std::ostream& out, const String& s);
-	friend std::istream& operator>> (std::istream& in, const String& s);
+	friend std::istream& operator>> (std::istream& in, String& s);
+
+	void serialize(std::ofstream& ofs);
+	void deserialize(std::ifstream& ifs);
 public:
 	unsigned int size() const { return length; }
-
 private:
 	void copy(const String& str);
 	void del();
-private:
 	void setStr(const char* str);
+private:
 	unsigned int length;
 	char* string;
 };

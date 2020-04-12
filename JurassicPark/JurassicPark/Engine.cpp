@@ -2,15 +2,20 @@
 
 void Engine::Run()
 {
+	Zoo zoo = Zoo();
+
+	ConsoleHelper consoleHelper = ConsoleHelper();
+	consoleHelper.RenderConsole();
+
 	while (true)
 	{
-		/*try
+		try
 		{
-
+			consoleHelper.ReadCommands(zoo);
 		}
-		catch (const std::exception&)
+		catch (const std::exception& e)
 		{
-
-		}*/
+			std::cout << e.what() << std::endl;
+		}
 	}
 }

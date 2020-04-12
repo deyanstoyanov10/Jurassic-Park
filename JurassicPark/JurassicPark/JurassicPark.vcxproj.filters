@@ -34,11 +34,20 @@
     <Filter Include="JurassicPark\Services">
       <UniqueIdentifier>{e051c325-932f-40ca-9e5c-6d593751a958}</UniqueIdentifier>
     </Filter>
-    <Filter Include="JurassicPark\Services\CageService">
-      <UniqueIdentifier>{d01c1f7d-6d05-45f5-b2a5-6a45b89f305c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="JurassicPark\Engine">
       <UniqueIdentifier>{62cc4292-1dde-4ce0-b743-255c5d45dd61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JurassicPark\Zoo">
+      <UniqueIdentifier>{4b377862-9581-43a7-bed7-d77d1b5f0c98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JurassicPark\ConsoleHelper">
+      <UniqueIdentifier>{1cc5f48d-d613-41cb-b1ad-ae7ab2c28207}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\DTOs">
+      <UniqueIdentifier>{e3dcb67a-42cf-4aba-9004-258794d486df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JurassicPark\Repository">
+      <UniqueIdentifier>{79356c64-2a62-49e0-8d7c-85e3c807ccf4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -72,11 +81,32 @@
     <ClInclude Include="Cage.hpp">
       <Filter>JurassicPark\Cage</Filter>
     </ClInclude>
-    <ClInclude Include="CageService.hpp">
-      <Filter>JurassicPark\Services\CageService</Filter>
-    </ClInclude>
     <ClInclude Include="Engine.hpp">
       <Filter>JurassicPark\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Zoo.hpp">
+      <Filter>JurassicPark\Zoo</Filter>
+    </ClInclude>
+    <ClInclude Include="CageService.hpp">
+      <Filter>JurassicPark\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="DinosaurService.hpp">
+      <Filter>JurassicPark\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="ConsoleHelper.hpp">
+      <Filter>JurassicPark\ConsoleHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="InputService.hpp">
+      <Filter>JurassicPark\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="Repository.hpp">
+      <Filter>JurassicPark\Repository</Filter>
+    </ClInclude>
+    <ClInclude Include="DinosaurDTO.hpp">
+      <Filter>Common\DTOs</Filter>
+    </ClInclude>
+    <ClInclude Include="CageDTO.hpp">
+      <Filter>Common\DTOs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -92,11 +122,26 @@
     <ClCompile Include="Cage.cpp">
       <Filter>JurassicPark\Cage</Filter>
     </ClCompile>
-    <ClCompile Include="CageService.cpp">
-      <Filter>JurassicPark\Services\CageService</Filter>
-    </ClCompile>
     <ClCompile Include="Engine.cpp">
       <Filter>JurassicPark\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Zoo.cpp">
+      <Filter>JurassicPark\Zoo</Filter>
+    </ClCompile>
+    <ClCompile Include="CageService.cpp">
+      <Filter>JurassicPark\Services</Filter>
+    </ClCompile>
+    <ClCompile Include="DinosaurService.cpp">
+      <Filter>JurassicPark\Services</Filter>
+    </ClCompile>
+    <ClCompile Include="ConsoleHelper.cpp">
+      <Filter>JurassicPark\ConsoleHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="InputService.cpp">
+      <Filter>JurassicPark\Services</Filter>
+    </ClCompile>
+    <ClCompile Include="Repository.cpp">
+      <Filter>JurassicPark\Repository</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

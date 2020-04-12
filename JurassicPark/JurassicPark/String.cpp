@@ -39,6 +39,37 @@ void String::setStr(const char* str)
 	strcpy(this->string, str);
 }
 
+void String::serialize(std::ofstream& ofs)
+{
+	if (!ofs.is_open())
+	{
+		throw std::exception("Problem has occured.");
+	}
+
+	unsigned int length = strlen(string);
+	ofs.write((const char*)&length, sizeof(length));
+	ofs.write(string, length * sizeof(char));
+}
+
+void String::deserialize(std::ifstream& ifs)
+{
+	if (!ifs.is_open())
+	{
+		throw std::exception("Problem has occured.");
+	}
+
+	unsigned int length = 0;
+	ifs.read((char*)&length, sizeof(length));
+	char* str = new char[length + 1];
+	ifs.read(str, length);
+	str[length] = '\0';
+
+
+	delete[] string;
+	string = str;
+	this->length = length;
+}
+
 void String::copy(const String& str)
 {
 	this->string = new char[strlen(str.string) + 1];
@@ -209,8 +240,13 @@ std::ostream& operator<<(std::ostream& out, const String& s)
 	return out;
 }
 
-std::istream& operator>>(std::istream& in, const String& s)
+std::istream& operator>>(std::istream& in, String& s)
 {
-	in.getline(s.string, BUFFER);
+	char input[BUFFER];
+	in.getline(input, BUFFER);
+	
+	String inp = input;
+	s = inp;
+
 	return in;
 }

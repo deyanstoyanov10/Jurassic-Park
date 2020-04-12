@@ -177,7 +177,7 @@ inline void Vector<Type>::deleteAt(unsigned index)
 		throw std::out_of_range("Index was outside the bounds of the array.");
 	}
 
-	for (int i = index; i < size - 1; i++)
+	for (unsigned int i = index; i < size - 1; i++)
 	{
 		container[i] = container[i + 1];
 	}
