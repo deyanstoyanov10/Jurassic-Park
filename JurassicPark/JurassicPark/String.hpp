@@ -42,6 +42,7 @@ public:
 	void deserialize(std::ifstream& ifs);
 
 	Vector<String> strSplit(char splitter, const char* str);
+	void repeat(const String& str, unsigned n);
 public:
 	unsigned int size() const { return length; }
 private:

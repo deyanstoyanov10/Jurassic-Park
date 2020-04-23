@@ -28,6 +28,8 @@ public:
 
 	void printCage();
 private:
+	void printTableLine();
+	void printColumns();
 	void validationForAddingDinosaur(Dinosaur dinosaur);
 	void initializeCageForFirstAdding(Dinosaur dinosaur);
 private:

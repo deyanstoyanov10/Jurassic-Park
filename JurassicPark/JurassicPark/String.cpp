@@ -100,6 +100,15 @@ Vector<String> String::strSplit(char splitter, const char* str)
 	return words;
 }
 
+void String::repeat(const String& str, unsigned n)
+{
+	for (unsigned i = 0; i < n; i++)
+	{
+		std::cout << str;
+	}
+	//std::cout << std::endl;
+}
+
 int String::wordsCount(char splitter, const char* str)
 {
 	int count = 0;

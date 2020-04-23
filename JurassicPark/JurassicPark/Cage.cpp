@@ -109,10 +109,63 @@ void Cage::printCage()
 	std::cout << "Climate: " << DinosaurService::printClimate(this->climate) << std::endl;
 	std::cout << "Period: " << DinosaurService::printPeriod(this->period) << std::endl;
 
+	printTableLine();
+	printColumns();
+	printTableLine();
+
 	for (unsigned int i = 0; i < dinosaurs.count(); i++)
 	{
 		this->dinosaurs[i].printDinosaur();
+		printTableLine();
 	}
+}
+
+void Cage::printTableLine()
+{
+	String printer;
+	std::cout << "+";
+	printer.repeat("-", NAME_LENGTH);
+	std::cout << "+";
+	printer.repeat("-", GENDER_LENGTH);
+	std::cout << "+";
+	printer.repeat("-", PERIOD_LENGTH);
+	std::cout << "+";
+	printer.repeat("-", KIND_LENGTH);
+	std::cout << "+";
+	printer.repeat("-", TYPE_LENGTH);
+	std::cout << "+";
+	printer.repeat("-", FOOD_LENGTH);
+	std::cout << "+" << std::endl;
+}
+
+void Cage::printColumns()
+{
+	String printer;
+
+	String name = "Name";
+	std::cout << "|" << name;
+	printer.repeat(" ", NAME_LENGTH - name.size());
+
+	String gender = "Gender";
+	std::cout << "|" << gender;
+	printer.repeat(" ", GENDER_LENGTH - gender.size());
+
+	String period = "Period";
+	std::cout << "|" << period;
+	printer.repeat(" ", PERIOD_LENGTH - period.size());
+
+	String kind = "Kind";
+	std::cout << "|" << kind;
+	printer.repeat(" ", KIND_LENGTH - kind.size());
+
+	String type = "Type";
+	std::cout << "|" << type;
+	printer.repeat(" ", TYPE_LENGTH - type.size());
+
+	String food = "Food";
+	std::cout << "|" << food;
+	printer.repeat(" ", FOOD_LENGTH - food.size());
+	std::cout << "|" << std::endl;
 }
 
 void Cage::validationForAddingDinosaur(Dinosaur dinosaur)

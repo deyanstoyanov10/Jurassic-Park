@@ -53,6 +53,9 @@ void InputService::RemoveDinosaur(const String& name)
 	}
 
 	cages[index].removeDinosaur(name);
+	this->repo.serializeAll(cages);
+
+	std::cout << "Dinosaur " << name << " successfully removed." << std::endl;
 }
 
 void InputService::printZoo()

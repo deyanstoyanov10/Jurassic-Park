@@ -8,6 +8,13 @@
 #include "Type.hpp"
 #include "Food.hpp"
 
+#define NAME_LENGTH 20
+#define	GENDER_LENGTH 6
+#define PERIOD_LENGTH 6
+#define KIND_LENGTH 11
+#define TYPE_LENGTH 13
+#define FOOD_LENGTH 5
+
 class Dinosaur
 {
 public:
