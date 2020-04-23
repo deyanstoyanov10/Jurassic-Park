@@ -2,19 +2,18 @@
 
 ConsoleHelper::ConsoleHelper()
 {
-    this->inputService = new InputService();
+    this->inputService = InputService();
 }
 
-ConsoleHelper::~ConsoleHelper()
+void ConsoleHelper::ReadCommands()
 {
-    delete inputService;
-}
-
-void ConsoleHelper::ReadCommands(Zoo& zoo)
-{
-    char input[BUFFER];
-    std::cin.getline(input, BUFFER);
-    InitializeCommand(input, zoo);
+    char input[BUFF];
+    std::cin.getline(input, BUFF);
+    
+    String inp;
+    Vector<String> commands = inp.strSplit(' ', input);
+    
+    InitializeCommand(commands);
 }
 
 void ConsoleHelper::RenderConsole()
@@ -33,28 +32,25 @@ void ConsoleHelper::RenderHelp()
     std::cout << "exit => Exiting the program." << std::endl;
 }
 
-void ConsoleHelper::InitializeCommand(const char* input, Zoo& zoo)
+void ConsoleHelper::InitializeCommand(Vector<String> commands)
 {
-    char** commands;
-    int count = ExtractWords(input, commands);
-
-    if (strcmp(commands[0], "add") == 0 && strcmp(commands[1], "dinosaur") == 0)
+    if (commands[0] == "add" && commands[1] == "dinosaur")
     {
-        this->inputService->AddDinosaur(zoo);
+        this->inputService.AddDinosaur();
     }
-    else if (strcmp(commands[0], "remove") == 0 && strcmp(commands[1], "dinosaur") == 0)
+    else if (commands[0] == "remove" && commands[1] == "dinosaur")
     {
-        this->inputService->RemoveDinosaur(zoo, commands[2]);
+        this->inputService.RemoveDinosaur(commands[2]);
     }
-    else if (strcmp(commands[0], "print") == 0)
+    else if (commands[0] == "print")
     {
-        zoo.printZoo();
+        this->inputService.printZoo();
     }
-    else if (strcmp(commands[0], "help") == 0)
+    else if (commands[0] == "help")
     {
         RenderHelp();
     }
-    else if (strcmp(commands[0], "exit") == 0)
+    else if (commands[0] == "exit")
     {
         std::cout << "Exiting the program..." << std::endl;
         exit(0);
@@ -63,10 +59,6 @@ void ConsoleHelper::InitializeCommand(const char* input, Zoo& zoo)
     {
         throw std::exception("Invalid command.");
     }
-
-    for (int i = 0; i < count; i++)
-        delete[] commands[i];
-    delete[] commands;
 }
 
 int ConsoleHelper::ExtractWords(const char* input, char**& commands)

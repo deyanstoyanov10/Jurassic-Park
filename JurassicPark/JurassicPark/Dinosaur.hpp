@@ -22,6 +22,8 @@ public:
 
 	void loadDinosaur(std::istream& in);
 	void serialize(std::ofstream& ofs);
+	void deserialize(std::ifstream& ifs);
+
 	friend bool operator!=(const Dinosaur& left, const Dinosaur& right);
 
 	void printDinosaur();

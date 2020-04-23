@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Vector.hpp"
 #include<string.h>
 #include<iostream>
 #include<fstream>
@@ -39,9 +40,13 @@ public:
 
 	void serialize(std::ofstream& ofs);
 	void deserialize(std::ifstream& ifs);
+
+	Vector<String> strSplit(char splitter, const char* str);
 public:
 	unsigned int size() const { return length; }
 private:
+	int wordsCount(char splitter, const char* str);
+	bool isCharLetter(char splitter, char c);
 	void copy(const String& str);
 	void del();
 	void setStr(const char* str);

@@ -6,29 +6,25 @@
 #include "CageDTO.hpp"
 #include "DinosaurDTO.hpp"
 
-const int MaxRandomCages = 15;
+const int MaxRandomCages = 3;
 static const char* CagesPath = "./Database/Cages.bin";
 static const char* CagesIdPath = "./Database/CagesId.bin";
 static const char* DinosaursPath = "./Database/Dinosaurs.bin";
-static const char* DinosaursIdPath = "./Database/DinosaursId.bin";
 
 class Repository
 {
 public:
-	static Vector<Vector<Cage>> loadAllCages();
-	static void serializeAll(Vector<Vector<Cage>> all);
-	static int executeCagesId();
+	Vector<Cage> loadAllCages();
+	void serializeAll(Vector<Cage> all);
+	int executeCagesId();
+	bool checkForExistingName(Vector<Cage> all, const String& name);
 private:
-	static Cage deserializeCage(std::ifstream& ifs);
-    static Vector<Cage> deserializeAllCages();
-	static Dinosaur deserializeDinosaur(std::ifstream& ifs);
-	static Vector<Dinosaur> deserializeAllDinosaurs();
-	static Vector<Vector<Cage>> filterCages(Vector<Cage> cages, Vector<Dinosaur> dinosaurs);
-	 
-	static int executeIdQuery(const char* path);
-	static void buildRandomCages();
-	static CageDTO createRandomCageDto(Climate climate);
+    Vector<Cage> deserializeAllCages();
+	Vector<Dinosaur> deserializeAllDinosaurs();
+	Vector<Cage> filterCages(Vector<Cage> cages, Vector<Dinosaur> dinosaurs);
+	Vector<Cage> sortCages(Vector<Cage> cages);
 
-	static unsigned int allCagesCount;
-	static unsigned int allDinosaursCount;
+	int executeIdQuery(const char* path);
+	void buildRandomCages();
+	CageDTO createRandomCageDto(Climate climate);
 };

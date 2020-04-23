@@ -70,6 +70,69 @@ void String::deserialize(std::ifstream& ifs)
 	this->length = length;
 }
 
+Vector<String> String::strSplit(char splitter, const char* str)
+{
+	Vector<String> words;
+
+	int count = wordsCount(splitter, str);
+	for (int i = 0; i < count; i++) {
+
+		while (*str && !isCharLetter(splitter, *str))
+			++str;
+		if (*str) {
+			const char* start = str;
+			while (isCharLetter(splitter, *str))
+				++str;
+
+			int len = str - start;
+			char* s = new char[len + 1];
+
+			for (int pos = 0; pos < len; ++pos)
+				s[pos] = start[pos];
+			s[len] = '\0';
+
+			String word = s;
+			words.push_back(word);
+			delete[] s;
+		}
+	}
+
+	return words;
+}
+
+int String::wordsCount(char splitter, const char* str)
+{
+	int count = 0;
+	while (*str) {
+		while (*str && !isCharLetter(splitter, *str)) {
+			++str;
+		}
+		if (*str) {
+			++count;
+		}
+		while (isCharLetter(splitter, *str)) {
+			++str;
+		}
+	}
+
+	return count;
+}
+
+bool String::isCharLetter(char splitter, char c)
+{
+	if (c == splitter)
+	{
+		return false;
+	}
+
+	if (c != '\0')
+	{
+		return true;
+	}
+
+	return false;
+}
+
 void String::copy(const String& str)
 {
 	this->string = new char[strlen(str.string) + 1];

@@ -36,6 +36,7 @@ void Dinosaur::loadDinosaur(std::istream& in)
 	std::cout << "Food: ";
 	in >> foodInput;
 	this->food = DinosaurService::getFoodByIndex(foodInput);
+	in.ignore();
 }
 
 void Dinosaur::serialize(std::ofstream& ofs)
@@ -52,6 +53,22 @@ void Dinosaur::serialize(std::ofstream& ofs)
 	ofs.write((const char*)&this->type, sizeof(this->type));
 	ofs.write((const char*)&this->food, sizeof(this->food));
 	ofs.write((const char*)&this->cageId, sizeof(this->cageId));
+}
+
+void Dinosaur::deserialize(std::ifstream& ifs)
+{
+	if (!ifs.is_open())
+	{
+		throw std::exception("Cannot open Dinosaurs.bin");
+	}
+    
+	this->name.deserialize(ifs);
+	ifs.read((char*)&gender, sizeof(gender));
+	ifs.read((char*)&period, sizeof(period));
+	ifs.read((char*)&kind, sizeof(kind));
+	ifs.read((char*)&type, sizeof(type));
+	ifs.read((char*)&food, sizeof(food));
+	ifs.read((char*)&cageId, sizeof(cageId));
 }
 
 void Dinosaur::printDinosaur()

@@ -1,11 +1,9 @@
 #include "Repository.hpp"
 
-unsigned int Repository::allCagesCount = 0;
-unsigned int Repository::allDinosaursCount = 0;
-
-Vector<Vector<Cage>> Repository::loadAllCages()
+Vector<Cage> Repository::loadAllCages()
 {
 	std::ifstream ifs(CagesPath, std::ios::in | std::ios::binary);
+
 	if (!ifs.is_open())
 	{
 		throw std::exception("File is not open");
@@ -18,86 +16,80 @@ Vector<Vector<Cage>> Repository::loadAllCages()
 	{
 		buildRandomCages();
 	}
-	
-	Vector<Cage> allCages = deserializeAllCages();
-	allCagesCount = allCages.count();
-	Vector<Dinosaur> allDinosaurs = deserializeAllDinosaurs();
-	allDinosaursCount = allDinosaurs.count();
-	Vector<Vector<Cage>> zoo = filterCages(allCages, allDinosaurs);
 
-	return zoo;
+	Vector<Cage> allCages = deserializeAllCages();
+	Vector<Dinosaur> allDinosaurs = deserializeAllDinosaurs();
+
+	Vector<Cage> deserializedCages = filterCages(allCages, allDinosaurs);
+	
+	return deserializedCages;
 }
 
-void Repository::serializeAll(Vector<Vector<Cage>> all)
+void Repository::serializeAll(Vector<Cage> all)
 {
-	std::ofstream ofs(CagesPath, std::ios::out | std::ios::binary);
+	std::ofstream ofsCages(CagesPath, std::ios::out | std::ios::binary);
 	std::ofstream ofsDinosaur(DinosaursPath, std::ios::out | std::ios::binary);
 
-	for (unsigned int i = 0; i < all.count(); i++)
+	unsigned int countCages = all.count();
+	unsigned int sumAllDinosaurs = 0;
+	
+	for (unsigned int i = 0; i < countCages; i++)
 	{
-		for (unsigned int j = 0; j < all[i].count(); j++)
-		{
-			all[i][j].serialize(ofs, ofsDinosaur);
-		}
+		sumAllDinosaurs += all[i].getCurrentSizeInCage();
 	}
 
-	ofs.close();
+	ofsCages.write((const char*)&countCages, sizeof(countCages));
+	ofsDinosaur.write((const char*)&sumAllDinosaurs, sizeof(sumAllDinosaurs));
+	
+	for (unsigned int i = 0; i < all.count(); i++)
+	{
+		all[i].serializeAllDinosaurs(ofsDinosaur);
+		all[i].serialize(ofsCages);
+	}
+
+	ofsCages.close();
 	ofsDinosaur.close();
 }
 
-Vector<Vector<Cage>> Repository::filterCages(Vector<Cage> cages, Vector<Dinosaur> dinosaurs)
+Vector<Cage> Repository::filterCages(Vector<Cage> cages, Vector<Dinosaur> dinosaurs)
 {
-	Vector<Vector<Cage>> filteredCages;
+	Vector<Cage> filteredCages = sortCages(cages);
 
-	Vector<Cage> terrestrialCages;
-	Vector<Cage> airCages;
-	Vector<Cage> waterCages;
-
-	for (unsigned int i = 0; i < cages.count(); i++)
+	for (unsigned int i = 0; i < filteredCages.count(); i++)
 	{
 		for (unsigned int j = 0; j < dinosaurs.count(); j++)
 		{
-			if (cages[i].getId() == dinosaurs[j].getCageId())
+			if (dinosaurs[j].getCageId() - 1 == i)
 			{
-				cages[i].addDinosaur(dinosaurs[j]);
+				filteredCages[i].addDinosaur(dinosaurs[j]);
 			}
 		}
 	}
 
-	for (unsigned int i = 0; i < cages.count(); i++)
-	{
-		if (cages[i].getClimate() == Climate::Terrestrial)
-		{
-			terrestrialCages.push_back(cages[i]);
-		}
-		else if (cages[i].getClimate() == Climate::Air)
-		{
-			airCages.push_back(cages[i]);
-		}
-		else if (cages[i].getClimate() == Climate::Water)
-		{
-			waterCages.push_back(cages[i]);
-		}
-	}
-
-	filteredCages.push_back(terrestrialCages);
-	filteredCages.push_back(airCages);
-	filteredCages.push_back(waterCages);
-
 	return filteredCages;
 }
 
-Cage Repository::deserializeCage(std::ifstream& ifs)
+Vector<Cage> Repository::sortCages(Vector<Cage> cages)
 {
-	CageDTO cageDto = CageDTO();
+	Vector<Cage> allCages = cages;
 
-	ifs.read((char*)&cageDto.id, sizeof(cageDto.id));
-	ifs.read((char*)&cageDto.size, sizeof(cageDto.size));
-	ifs.read((char*)&cageDto.climate, sizeof(cageDto.climate));
-	ifs.read((char*)&cageDto.period, sizeof(cageDto.period));
+	bool changed = false;
 
-	Cage cage = Cage(cageDto.id, cageDto.size, cageDto.climate, cageDto.period);
-	return cage;
+	do
+	{
+		changed = false;
+
+		for (unsigned int i = 0; i < allCages.count() - 1; i++)
+		{
+			if (allCages[i].getId() > allCages[i + 1].getId())
+			{
+				std::swap(allCages[i], allCages[i + 1]);
+				changed = true;
+			}
+		}
+	} while (changed);
+
+	return allCages;
 }
 
 Vector<Cage> Repository::deserializeAllCages()
@@ -115,31 +107,13 @@ Vector<Cage> Repository::deserializeAllCages()
 	Vector<Cage> allCages;
 	for (int i = 0; i < countCages; i++)
 	{
-		allCages.push_back(deserializeCage(ifs));
+		Cage cage = Cage();
+		cage.deserialize(ifs);
+		allCages.push_back(cage);
 	}
 
 	ifs.close();
 	return allCages;
-}
-
-Dinosaur Repository::deserializeDinosaur(std::ifstream& ifs)
-{
-	if (!ifs.is_open())
-	{
-		throw std::exception("Cannot open Dinosaurs.bin");
-	}
-
-	DinosaurDTO dinosaurDto = DinosaurDTO();
-	dinosaurDto.name.deserialize(ifs);
-	ifs.read((char*)&dinosaurDto.gender, sizeof(dinosaurDto.gender));
-	ifs.read((char*)&dinosaurDto.period, sizeof(dinosaurDto.period));
-	ifs.read((char*)&dinosaurDto.kind, sizeof(dinosaurDto.kind));
-	ifs.read((char*)&dinosaurDto.type, sizeof(dinosaurDto.type));
-	ifs.read((char*)&dinosaurDto.food, sizeof(dinosaurDto.food));
-	ifs.read((char*)&dinosaurDto.cageId, sizeof(dinosaurDto.cageId));
-
-	Dinosaur dinosaur = Dinosaur(dinosaurDto.name, dinosaurDto.gender, dinosaurDto.period, dinosaurDto.kind, dinosaurDto.type, dinosaurDto.food, dinosaurDto.cageId);
-	return dinosaur;
 }
 
 Vector<Dinosaur> Repository::deserializeAllDinosaurs()
@@ -157,7 +131,9 @@ Vector<Dinosaur> Repository::deserializeAllDinosaurs()
 	Vector<Dinosaur> allDinsaurs;
 	for (int i = 0; i < countDinosaurs; i++)
 	{
-		allDinsaurs.push_back(deserializeDinosaur(ifs));
+		Dinosaur dinosaur = Dinosaur();
+		dinosaur.deserialize(ifs);
+		allDinsaurs.push_back(dinosaur);
 	}
 
 	ifs.close();
@@ -186,6 +162,18 @@ int Repository::executeCagesId()
 	int cagesId = executeIdQuery(CagesIdPath);
 
 	return cagesId;
+}
+
+bool Repository::checkForExistingName(Vector<Cage> all, const String& name)
+{
+	for (unsigned int i = 0; i < all.count(); i++)
+	{
+		if (all[i].checkForExistingName(name) == true)
+		{
+			return true;
+		}
+	}
+	return false;
 }
 
 void Repository::buildRandomCages()

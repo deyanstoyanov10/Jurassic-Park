@@ -16,12 +16,15 @@ public:
 
 	const int getId() { return this->id; }
 	Climate getClimate() { return this->climate; }
-	
-	void serialize(std::ofstream& ofs, std::ofstream& ofsDinosaur);
+	const int getCurrentSizeInCage() const { return this->dinosaurs.count(); }
+
+	void serialize(std::ofstream& ofs);
+	void deserialize(std::ifstream& ifs);
+	void serializeAllDinosaurs(std::ofstream& ofs);
 
 	bool isAnySpaceInCage();
-	bool isDinosaurMatch(Dinosaur dinosaur);
-	bool checkDinosaurHasName(String name);
+	bool isThisCageSuitable(Dinosaur dinosaur);
+	bool checkForExistingName(String name);
 
 	void printCage();
 private:

@@ -26,21 +26,37 @@ void Cage::removeDinosaur(String name)
 	this->dinosaurs.deleteAt(index);
 }
 
-void Cage::serialize(std::ofstream& ofs, std::ofstream& ofsDinosaur)
+void Cage::serialize(std::ofstream& ofs)
 {
 	if (!ofs.is_open())
 	{
-		throw std::exception("Cannot open Dinosaurs.bin");
+		throw std::exception("Cannot open Cages.bin");
 	}
 	
-	ofs.write((const char*)&this->id, sizeof(this->id));
-	ofs.write((const char*)&this->size, sizeof(this->size));
-	ofs.write((const char*)&this->climate, sizeof(this->climate));
-	ofs.write((const char*)&this->period, sizeof(this->period));
-	
+	ofs.write((const char*)&id, sizeof(id));
+	ofs.write((const char*)&size, sizeof(size));
+	ofs.write((const char*)&climate, sizeof(climate));
+	ofs.write((const char*)&period, sizeof(period));
+}
+
+void Cage::deserialize(std::ifstream& ifs)
+{
+	if (!ifs.is_open())
+	{
+		throw std::exception("Cannot open Cages.bin");
+	}
+
+	ifs.read((char*)&id, sizeof(id));
+	ifs.read((char*)&size, sizeof(size));
+	ifs.read((char*)&climate, sizeof(climate));
+	ifs.read((char*)&period, sizeof(period));
+}
+
+void Cage::serializeAllDinosaurs(std::ofstream& ofs)
+{
 	for (unsigned int i = 0; i < dinosaurs.count(); i++)
 	{
-		this->dinosaurs[i].serialize(ofsDinosaur);
+		this->dinosaurs[i].serialize(ofs);
 	}
 }
 
@@ -54,10 +70,11 @@ bool Cage::isAnySpaceInCage()
 	return false;
 }
 
-bool Cage::isDinosaurMatch(Dinosaur dinosaur)
+bool Cage::isThisCageSuitable(Dinosaur dinosaur)
 {
 	if (period != dinosaur.getPeriod() && dinosaurs.count() > 0)
 	{
+		
 		return false;
 	}
 
@@ -72,11 +89,11 @@ bool Cage::isDinosaurMatch(Dinosaur dinosaur)
 	return true;
 }
 
-bool Cage::checkDinosaurHasName(String name)
+bool Cage::checkForExistingName(String name)
 {
-	for (auto dinosaur : dinosaurs)
+	for (unsigned int i = 0; i < dinosaurs.count(); i++)
 	{
-		if (dinosaur.getName() == name)
+		if (dinosaurs[i].getName() == name)
 		{
 			return true;
 		}
