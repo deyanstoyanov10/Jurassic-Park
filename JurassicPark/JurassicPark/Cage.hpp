@@ -5,6 +5,7 @@
 #include "Climate.hpp"
 #include "Dinosaur.hpp"
 #include "CageService.hpp"
+#include "FoodStorage.hpp"
 
 class Cage
 {
@@ -13,6 +14,9 @@ public:
 
 	void addDinosaur(Dinosaur dinosaur);
 	void removeDinosaur(String name);
+
+	void addFood(Food food, unsigned int quantity);
+	void removeFood(Food food, unsigned int quantity);
 
 	const int getId() { return this->id; }
 	Climate getClimate() { return this->climate; }
@@ -37,6 +41,7 @@ private:
 	unsigned int size;
 	Climate climate;
 	Period period;
+	FoodStorage storage;
 	Vector<Dinosaur> dinosaurs;
 };
 

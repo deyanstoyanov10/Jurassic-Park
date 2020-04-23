@@ -43,6 +43,9 @@ public:
 
 	Vector<String> strSplit(char splitter, const char* str);
 	void repeat(const String& str, unsigned n);
+	bool contains(char c);
+	int parseToInt();
+	float parseToFloat();
 public:
 	unsigned int size() const { return length; }
 private:

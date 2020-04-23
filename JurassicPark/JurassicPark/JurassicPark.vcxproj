@@ -145,6 +145,7 @@
     <ClCompile Include="DinosaurService.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="EntryPoint.cpp" />
+    <ClCompile Include="FoodStorage.cpp" />
     <ClCompile Include="InputService.cpp" />
     <ClCompile Include="Repository.cpp" />
     <ClCompile Include="String.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="DinosaurService.hpp" />
     <ClInclude Include="Engine.hpp" />
     <ClInclude Include="Food.hpp" />
+    <ClInclude Include="FoodStorage.hpp" />
     <ClInclude Include="InputService.hpp" />
     <ClInclude Include="Kind.hpp" />
     <ClInclude Include="Period.hpp" />

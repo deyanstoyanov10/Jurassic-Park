@@ -12,7 +12,7 @@ void Dinosaur::loadDinosaur(std::istream& in)
 	std::cout << "Name: ";
 	in >> this->name;
 
-	if (name.size() > 20)
+	if (name.size() > NAME_LENGTH)
 	{
 		throw std::exception("Name length cannot be more than 20.");
 	}

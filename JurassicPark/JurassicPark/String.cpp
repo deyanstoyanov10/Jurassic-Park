@@ -100,6 +100,34 @@ Vector<String> String::strSplit(char splitter, const char* str)
 	return words;
 }
 
+bool String::contains(char c)
+{
+	bool contains = false;
+
+	for (unsigned int i = 0; i < length; i++)
+	{
+		if (string[i] == c)
+		{
+			contains = true;
+			break;
+		}
+	}
+
+	return contains;
+}
+
+int String::parseToInt()
+{
+	int number = std::atoi(string);
+	return number;
+}
+
+float String::parseToFloat()
+{
+	float temp = ::atof(string);
+	return temp;
+}
+
 void String::repeat(const String& str, unsigned n)
 {
 	for (unsigned i = 0; i < n; i++)

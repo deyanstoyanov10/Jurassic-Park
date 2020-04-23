@@ -26,6 +26,36 @@ void Cage::removeDinosaur(String name)
 	this->dinosaurs.deleteAt(index);
 }
 
+void Cage::addFood(Food food, unsigned int quantity)
+{
+	switch (food)
+	{
+	case Food::Grass: this->storage.addGrass(quantity);
+		break;
+	case Food::Meat: this->storage.addMeat(quantity);
+		break;
+	case Food::Fish: this->storage.addFish(quantity);
+		break;
+	default: throw std::exception("Unknown food.");
+		break;
+	}
+}
+
+void Cage::removeFood(Food food, unsigned int quantity)
+{
+	switch (food)
+	{
+	case Food::Grass: this->storage.removeGrass(quantity);
+		break;
+	case Food::Meat: this->storage.removeMeat(quantity);
+		break;
+	case Food::Fish: this->storage.removeFish(quantity);
+		break;
+	default: throw std::exception("Unknown food.");
+		break;
+	}
+}
+
 void Cage::serialize(std::ofstream& ofs)
 {
 	if (!ofs.is_open())
@@ -37,6 +67,7 @@ void Cage::serialize(std::ofstream& ofs)
 	ofs.write((const char*)&size, sizeof(size));
 	ofs.write((const char*)&climate, sizeof(climate));
 	ofs.write((const char*)&period, sizeof(period));
+	this->storage.serialize(ofs);
 }
 
 void Cage::deserialize(std::ifstream& ifs)
@@ -50,6 +81,7 @@ void Cage::deserialize(std::ifstream& ifs)
 	ifs.read((char*)&size, sizeof(size));
 	ifs.read((char*)&climate, sizeof(climate));
 	ifs.read((char*)&period, sizeof(period));
+	this->storage.deserialize(ifs);
 }
 
 void Cage::serializeAllDinosaurs(std::ofstream& ofs)
@@ -108,6 +140,7 @@ void Cage::printCage()
 	std::cout << "Size: " << this->size << std::endl;
 	std::cout << "Climate: " << DinosaurService::printClimate(this->climate) << std::endl;
 	std::cout << "Period: " << DinosaurService::printPeriod(this->period) << std::endl;
+	std::cout << "Grass Quantity: " << storage.getGrass() << "; Meat Quantity: " << storage.getMeat() << "; Fish Quantity: " << storage.getFish() << std::endl;
 
 	printTableLine();
 	printColumns();

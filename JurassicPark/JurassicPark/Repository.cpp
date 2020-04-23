@@ -178,7 +178,7 @@ bool Repository::checkForExistingName(Vector<Cage> all, const String& name)
 
 void Repository::buildRandomCages()
 {
-	std::fstream ofs(CagesPath, std::ios::out | std::ios::binary);
+	std::ofstream ofs(CagesPath, std::ios::out | std::ios::binary);
 
 	if (!ofs.is_open())
 	{
@@ -195,6 +195,7 @@ void Repository::buildRandomCages()
 		ofs.write((const char*)&cageDto.size, sizeof(cageDto.size));
 		ofs.write((const char*)&cageDto.climate, sizeof(cageDto.climate));
 		ofs.write((const char*)&cageDto.period, sizeof(cageDto.period));
+		cageDto.storage.serialize(ofs);
 	}
 
 	for (unsigned int i = 0; i < MaxRandomCages / 3; i++)
@@ -205,6 +206,7 @@ void Repository::buildRandomCages()
 		ofs.write((const char*)&cageDto.size, sizeof(cageDto.size));
 		ofs.write((const char*)&cageDto.climate, sizeof(cageDto.climate));
 		ofs.write((const char*)&cageDto.period, sizeof(cageDto.period));
+		cageDto.storage.serialize(ofs);
 	}
 
 	for (unsigned int i = 0; i < MaxRandomCages / 3; i++)
@@ -215,6 +217,7 @@ void Repository::buildRandomCages()
 		ofs.write((const char*)&cageDto.size, sizeof(cageDto.size));
 		ofs.write((const char*)&cageDto.climate, sizeof(cageDto.climate));
 		ofs.write((const char*)&cageDto.period, sizeof(cageDto.period));
+		cageDto.storage.serialize(ofs);
 	}
 	
 	ofs.close();

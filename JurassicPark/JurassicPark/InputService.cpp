@@ -58,6 +58,28 @@ void InputService::RemoveDinosaur(const String& name)
 	std::cout << "Dinosaur " << name << " successfully removed." << std::endl;
 }
 
+void InputService::AddFood(unsigned int cageId, Food food, unsigned int quantity)
+{
+	Vector<Cage> cages = this->repo.loadAllCages();
+	int index = findCageIndexById(cages, cageId);
+
+	cages[index].addFood(food, quantity);
+	this->repo.serializeAll(cages);
+
+	std::cout << "Successfully added " << quantity << " " << DinosaurService::printFood(food) << " to cage id " << cageId << "." << std::endl;
+}
+
+void InputService::RemoveFood(unsigned int cageId, Food food, unsigned int quantity)
+{
+	Vector<Cage> cages = this->repo.loadAllCages();
+	int index = findCageIndexById(cages, cageId);
+
+	cages[index].removeFood(food, quantity);
+	this->repo.serializeAll(cages);
+
+	std::cout << "Successfully removed " << quantity << " " << DinosaurService::printFood(food) << " to cage id " << cageId << "." << std::endl;
+}
+
 void InputService::printZoo()
 {
 	Vector<Cage> cages = this->repo.loadAllCages();
@@ -79,6 +101,27 @@ int InputService::findCageIdByDinosaurName(Vector<Cage> cages, const String& nam
 			index = i;
 			break;
 		}
+	}
+
+	return index;
+}
+
+int InputService::findCageIndexById(Vector<Cage> cages, unsigned int cageId)
+{
+	int index = -1;
+
+	for (unsigned int i = 0; i < cages.count(); i++)
+	{
+		if (cages[i].getId() == cageId)
+		{
+			index = i;
+			break;
+		}
+	}
+
+	if (index == -1)
+	{
+		throw std::exception("Cannot find cage index by given id.");
 	}
 
 	return index;

@@ -46,6 +46,9 @@
     <Filter Include="JurassicPark\Repository">
       <UniqueIdentifier>{79356c64-2a62-49e0-8d7c-85e3c807ccf4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="JurassicPark\FoodStorage">
+      <UniqueIdentifier>{aea34be3-5f6f-4b26-a04a-879d1610e0e9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="String.hpp">
@@ -99,6 +102,9 @@
     <ClInclude Include="CageDTO.hpp">
       <Filter>Common\DTOs</Filter>
     </ClInclude>
+    <ClInclude Include="FoodStorage.hpp">
+      <Filter>JurassicPark\FoodStorage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="String.cpp">
@@ -130,6 +136,9 @@
     </ClCompile>
     <ClCompile Include="Repository.cpp">
       <Filter>JurassicPark\Repository</Filter>
+    </ClCompile>
+    <ClCompile Include="FoodStorage.cpp">
+      <Filter>JurassicPark\FoodStorage</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

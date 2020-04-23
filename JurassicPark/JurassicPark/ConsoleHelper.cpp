@@ -29,6 +29,8 @@ void ConsoleHelper::RenderHelp()
     std::cout << "add dinosaur => Adding new dinosaur" << std::endl;
     std::cout << "add food => Adding food to storage" << std::endl;
     std::cout << "remove dinosaur <name> => Removing dinosaur by name." << std::endl;
+    std::cout << "add food <Cage Id> <Food Type> <Quantity> => Adding food to given cage id." << std::endl;
+    std::cout << "remove food <Cage Id> <Food Type> <Quantity> => Removing food to given cage id." << std::endl;
     std::cout << "exit => Exiting the program." << std::endl;
 }
 
@@ -41,6 +43,34 @@ void ConsoleHelper::InitializeCommand(Vector<String> commands)
     else if (commands[0] == "remove" && commands[1] == "dinosaur")
     {
         this->inputService.RemoveDinosaur(commands[2]);
+    }
+    else if (commands[0] == "add" && commands[1] == "food")
+    {
+        if (commands.count() < 5)
+        {
+            throw std::exception("Invalid commands");
+        }
+
+        int cageId = commands[2].parseToInt();
+        int foodType = commands[3].parseToInt();
+        int quantity = commands[4].parseToInt();
+
+        Food food = DinosaurService::getFoodByIndex(foodType);
+        this->inputService.AddFood(cageId, food, quantity);
+    }
+    else if (commands[0] == "remove" && commands[1] == "food")
+    {
+        if (commands.count() < 5)
+        {
+            throw std::exception("Invalid commands");
+        }
+
+        int cageId = commands[2].parseToInt();
+        int foodType = commands[3].parseToInt();
+        int quantity = commands[4].parseToInt();
+
+        Food food = DinosaurService::getFoodByIndex(foodType);
+        this->inputService.RemoveFood(cageId, food, quantity);
     }
     else if (commands[0] == "print")
     {
