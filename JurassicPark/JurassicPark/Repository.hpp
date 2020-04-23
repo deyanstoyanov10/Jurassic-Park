@@ -4,7 +4,6 @@
 #include "Vector.hpp"
 #include "Cage.hpp"
 #include "CageDTO.hpp"
-#include "DinosaurDTO.hpp"
 
 const int MaxRandomCages = 3;
 static const char* CagesPath = "./Database/Cages.bin";

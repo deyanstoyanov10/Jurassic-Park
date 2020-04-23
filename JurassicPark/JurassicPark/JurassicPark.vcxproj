@@ -148,7 +148,6 @@
     <ClCompile Include="InputService.cpp" />
     <ClCompile Include="Repository.cpp" />
     <ClCompile Include="String.cpp" />
-    <ClCompile Include="Zoo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cage.hpp" />
@@ -157,7 +156,6 @@
     <ClInclude Include="Climate.hpp" />
     <ClInclude Include="ConsoleHelper.hpp" />
     <ClInclude Include="Dinosaur.hpp" />
-    <ClInclude Include="DinosaurDTO.hpp" />
     <ClInclude Include="DinosaurService.hpp" />
     <ClInclude Include="Engine.hpp" />
     <ClInclude Include="Food.hpp" />
@@ -169,7 +167,6 @@
     <ClInclude Include="String.hpp" />
     <ClInclude Include="Type.hpp" />
     <ClInclude Include="Vector.hpp" />
-    <ClInclude Include="Zoo.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
